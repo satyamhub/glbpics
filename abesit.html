@@ -2,33 +2,72 @@
 <html>
 <head>
     <title>Student Photos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .student {
+            text-align: center;
+        }
+
+        .student img {
+            width: 100px;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .student span {
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
 
 <h2>Satyam Inc</h2>
 
+<div id="photos"></div>
+
 <script>
     let start = 19000;
     let end = 20000;
 
+    const photos = document.getElementById("photos");
+
     for (let id = start; id <= end; id++) {
+
+        let container = document.createElement("div");
+        container.className = "student";
 
         let img = new Image();
 
-        img.src = "https://abesit.servergi.com:8077/ISIMABESIT/Services/getImage.ashx?Category=Student&MasterId=19450&ImageRefName=Photo&IdCode=" 
-                  + id +
-                  "&height=120&width=100";
+        img.src =
+            "https://abesit.servergi.com:8077/ISIMABESIT/Services/getImage.ashx" +
+            "?Category=Student" +
+            "&MasterId=" + id +
+            "&ImageRefName=Photo" +
+            "&IdCode=" 
+            "&height=120" +
+            "&width=100";
 
-        img.style.marginBottom = "10px";
-
-        // Only append if image loads successfully
         img.onload = function () {
-            document.body.appendChild(img);
+            let label = document.createElement("span");
+            label.textContent = id;
+
+            container.appendChild(img);
+            container.appendChild(label);
+            photos.appendChild(container);
         };
 
-        // If image fails → skip silently
         img.onerror = function () {
-            // Do nothing
+            // Skip IDs without a valid photo
         };
     }
 </script>
