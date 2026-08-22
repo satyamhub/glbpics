@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Photos</title>
+</head>
+<body>
+
+<h2>Satyam Inc</h2>
+
+<script>
+    let start = 19000;
+    let end = 20000;
+
+    for (let id = start; id <= end; id++) {
+
+        let img = new Image();
+        ///ISIMGLB/Services/getImage.ashx?Category=Employee&amp;MasterId=2876&amp;ImageRefName=Photo&amp;IdCode=&amp;height=40&amp;width=40
+
+        img.src = "https://abesit.servergi.com:8077/ISIMABESIT/Services/getImage.ashx?Category=Student&MasterId=" 
+                  + id + 
+                  "&ImageRefName=Photo&IdCode=&height=120&width=100";
+
+        img.style.marginBottom = "10px";
+       // img.style.display = "block";
+
+        // Only append if image loads successfully
+        img.onload = function () {
+            document.body.appendChild(img);
+        };
+
+        // If image fails → skip silently
+       img.onerror = function () {
+            // Do nothing (skip)
+        };
+    }
+</script>
+
+</body>
+</html>
